@@ -1,0 +1,377 @@
+{
+    "message": "accurate",
+    "cod": "200",
+    "count": 10,
+    "list": [
+        {
+            "id": 5125125,
+            "name": "Long Island City",
+            "coord": {
+                "lat": 40.7448,
+                "lon": -73.9488
+            },
+            "main": {
+                "temp": 282.73,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 6332485,
+            "name": "Queensbridge Houses",
+            "coord": {
+                "lat": 40.7553,
+                "lon": -73.945
+            },
+            "main": {
+                "temp": 282.73,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 5128920,
+            "name": "North Beach",
+            "coord": {
+                "lat": 40.7659,
+                "lon": -73.876
+            },
+            "main": {
+                "temp": 282.73,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 7250946,
+            "name": "Carnegie Hill",
+            "coord": {
+                "lat": 40.7833,
+                "lon": -73.9548
+            },
+            "main": {
+                "temp": 282.73,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 5128581,
+            "name": "New York",
+            "coord": {
+                "lat": 40.7143,
+                "lon": -74.006
+            },
+            "main": {
+                "temp": 282.73,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 5125771,
+            "name": "Manhattan",
+            "coord": {
+                "lat": 40.7834,
+                "lon": -73.9663
+            },
+            "main": {
+                "temp": 282.73,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 5128594,
+            "name": "New York County",
+            "coord": {
+                "lat": 40.7834,
+                "lon": -73.9663
+            },
+            "main": {
+                "temp": 282.73,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 5112738,
+            "name": "City Line",
+            "coord": {
+                "lat": 40.6762,
+                "lon": -73.8871
+            },
+            "main": {
+                "temp": 282.76,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 5115985,
+            "name": "East New York",
+            "coord": {
+                "lat": 40.6668,
+                "lon": -73.8824
+            },
+            "main": {
+                "temp": 282.76,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        },
+        {
+            "id": 5099133,
+            "name": "Hoboken",
+            "coord": {
+                "lat": 40.744,
+                "lon": -74.0324
+            },
+            "main": {
+                "temp": 282.73,
+                "pressure": 1023,
+                "humidity": 32,
+                "temp_min": 281.15,
+                "temp_max": 284.15
+            },
+            "dt": 1524248100,
+            "wind": {
+                "speed": 6.7,
+                "deg": 340,
+                "gust": 9.8
+            },
+            "sys": {
+                "country": ""
+            },
+            "rain": null,
+            "snow": null,
+            "clouds": {
+                "all": 1
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ]
+        }
+    ]
+}
