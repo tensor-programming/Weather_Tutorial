@@ -1,0 +1,1 @@
+const API_KEY = '[OPEN WEATHER MAP API KEY HERE]';
