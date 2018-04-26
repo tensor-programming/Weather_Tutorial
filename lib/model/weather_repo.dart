@@ -41,9 +41,18 @@ class WeatherRepo {
     return req;
   }
 
-  Future<LocationResult> updateLocation() async {
-    Future<LocationResult> result = Geolocation.lastKnownLocation();
-    return result;
+  // Future<LocationResult> updateLocation() async {
+  //   Future<LocationResult> result = Geolocation.lastKnownLocation();
+  //   return result;
+  // }
+
+  //uses Stream instead of future.  Mainly done because lastKnownLocation isn't as reliable as locationUpdates.
+  //when geolocation plugin is fixed or better plugin is released, will update code.
+
+  Stream<LocationResult> updateLocationStream(dynamic item) {
+    Stream<LocationResult> stream = Geolocation.currentLocation(
+        accuracy: LocationAccuracy.best, inBackground: false);
+    return stream;
   }
 
   Future<bool> getGps() async {

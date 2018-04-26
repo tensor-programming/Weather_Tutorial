@@ -1,1 +1,1 @@
-const API_KEY = '[OPEN WEATHER MAP API KEY HERE]';
+const API_KEY = '[API KEY HERE]';

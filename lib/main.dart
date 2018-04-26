@@ -5,6 +5,10 @@ import 'package:weather/model/model_command.dart';
 import 'package:weather/model/model.dart';
 import 'package:weather/model/model_provider.dart';
 
+//unimport if you need the initState function stuff.
+
+// import 'package:geolocation/geolocation.dart';
+
 import 'package:rx_widgets/rx_widgets.dart';
 
 import 'package:http/http.dart' as http;
@@ -38,7 +42,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    super.initState();
+    //If Geolocation is unable to get location in emulator, uncomment this and then restart the program.
+    //This tends to fix the error and you can see if the GPS is actually getting the location.
+    // var x = Geolocation.locationUpdates(
+    //     accuracy: LocationAccuracy.best, inBackground: false);
+    // x.listen((d) => print(d.isSuccessful));
+  }
+
+  @override
   Widget build(BuildContext context) {
+    //call to getGpsCommand handler on build.  If GPS is active comes back with true, else false.
+    ModelProvider.of(context).getGpsCommand.call();
     return Scaffold(
       appBar: AppBar(
         title: Text('Weather App'),
@@ -48,20 +64,25 @@ class _MyHomePageState extends State<MyHomePage> {
               child: RxLoader<bool>(
                 radius: 20.0,
                 commandResults: ModelProvider.of(context).getGpsCommand,
-                dataBuilder: (context, data) =>
-                    Text(data ? "GPS Active" : "GPS Inactive"),
+                dataBuilder: (context, data) => Row(
+                      children: <Widget>[
+                        Text(data ? "GPS is Active" : "GPS is Inactive"),
+                        // Added logic to change the Icon when GPS is inactive.
+                        IconButton(
+                          icon: Icon(
+                              data ? Icons.gps_fixed : Icons.gps_not_fixed),
+                          onPressed: ModelProvider.of(context).getGpsCommand,
+                        ),
+                      ],
+                    ),
                 placeHolderBuilder: (context) => Text("Push the Button"),
                 errorBuilder: (context, exception) => Text("$exception"),
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.gps_fixed),
-            onPressed: ModelProvider.of(context).getGpsCommand,
-          ),
           PopupMenuButton<int>(
             padding: EdgeInsets.all(1.0),
-            tooltip: "Select how much data you want",
+            tooltip: "Select how many cities you want",
             onSelected: (int item) {
               ModelProvider.of(context).addCitiesCommand(item);
             },
@@ -70,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   .map((number) => PopupMenuItem(
                         value: number,
                         child: Center(
-                          child: Text(number.toString()),
+                          child: Text("$number Cities"),
                         ),
                       ))
                   .toList();
@@ -95,12 +116,12 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.all(10.0),
             child: Row(
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(5.0),
+                //changed to expanded for more consistency.
+                Expanded(
                   child: WidgetSelector(
                     buildEvents: ModelProvider
                         .of(context)
-                        .updateLocationCommand
+                        .updateWeatherCommand
                         .canExecute,
                     onTrue: MaterialButton(
                       elevation: 5.0,
@@ -108,19 +129,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text("Get the Weather"),
                       onPressed: ModelProvider
                           .of(context)
-                          .updateLocationCommand
-                          .execute,
+                          .updateLocationStreamCommand
+                          .call,
                     ),
                     onFalse: MaterialButton(
                       elevation: 0.0,
                       color: Colors.blueGrey,
                       onPressed: null,
-                      child: Text("Loading..."),
+                      child: Text("Loading Data....."),
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(left: 90.0),
+                //changed to expanded for more consistency.
+                Expanded(
                   child: Column(
                     children: <Widget>[
                       SliderItem(
