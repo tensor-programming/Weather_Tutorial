@@ -1,0 +1,14 @@
+{
+  "title": "Weather Application",
+  "@title": {
+    "description": "Title for the Weather application",
+    "type": "text"
+  },
+
+  "button": "Get the Weather",
+  "@button": {
+    "description": "get weather button",
+    "type": "text",
+    "placeholders": {}
+  }
+}

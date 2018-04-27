@@ -16,16 +16,21 @@ class WeatherRepo {
   WeatherRepo({this.client});
 
   int cnt = 50;
+  String lang = "en";
 
   void addCities(int count) {
     cnt = count;
+  }
+
+  void setLanguage(String code) {
+    lang = code;
   }
 
   Future<List<WeatherModel>> updateWeather(LocationResult result) async {
     String url;
     if (result != null) {
       url =
-          'http://api.openweathermap.org/data/2.5/find?lat=${result.location.latitude}&lon=${result.location.longitude}&cnt=$cnt&appid=$API_KEY';
+          'http://api.openweathermap.org/data/2.5/find?lat=${result.location.latitude}&lon=${result.location.longitude}&cnt=$cnt&appid=$API_KEY&lang=$lang';
     } else {
       url =
           'http://api.openweathermap.org/data/2.5/find?lat=43&lon=-79&cnt=10&appid=$API_KEY';
@@ -46,7 +51,7 @@ class WeatherRepo {
   //   return result;
   // }
 
-  //uses Stream instead of future.  Mainly done because lastKnownLocation isn't as reliable as currentLocation.
+  //uses Stream instead of future.  Mainly done because lastKnownLocation isn't as reliable as locationUpdates.
   //when geolocation plugin is fixed or better plugin is released, will update code.
 
   Stream<LocationResult> updateLocationStream(dynamic item) {

@@ -1,0 +1,14 @@
+{
+  "title": "天気アプリケーション",
+  "@title": {
+    "description": "Title for the Weather application",
+    "type": "text"
+  },
+  "button": "天気を取る",
+  "@button": {
+    "description": "get weather button",
+    "type": "text",
+    "placeholders": {}
+  }
+
+}

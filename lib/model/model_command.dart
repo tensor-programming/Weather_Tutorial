@@ -1,7 +1,7 @@
 import 'package:rx_command/rx_command.dart';
 import 'package:geolocation/geolocation.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:rxdart/streams.dart';
+// import 'package:rxdart/streams.dart';
 
 import 'package:weather/model/model.dart';
 import 'package:weather/model/weather_repo.dart';
@@ -14,6 +14,7 @@ class ModelCommand {
   final RxCommand<Null, bool> getGpsCommand;
   final RxCommand<bool, bool> radioCheckedCommand;
   final RxCommand<int, Null> addCitiesCommand;
+  final RxCommand<String, Null> changeLocaleCommand;
   final RxCommand<dynamic, LocationResult> updateLocationStreamCommand;
 
   ModelCommand._(
@@ -24,12 +25,16 @@ class ModelCommand {
     this.radioCheckedCommand,
     this.addCitiesCommand,
     this.updateLocationStreamCommand,
+    this.changeLocaleCommand,
   );
 
   factory ModelCommand(WeatherRepo repo) {
     final _getGpsCommand = RxCommand.createAsync2<bool>(repo.getGps);
 
     final _radioCheckedCommand = RxCommand.createSync3<bool, bool>((b) => b);
+
+    final _changeLocaleCommand =
+        RxCommand.createSync1<String>(repo.setLanguage);
 
     //A combined Observable of the GPS and Radio observables using And logic.  If one is false then false will be returned.
     //This allows us to have a more dynamic set of circumstances for shutting down the buttons.
@@ -49,15 +54,15 @@ class ModelCommand {
     // final _updateLocationCommand =
     //     RxCommand.createAsync2<LocationResult>(repo.updateLocation);
 
-    final _updateWeatherCommand =
-        RxCommand.createAsync3<LocationResult, List<WeatherModel>>(
-            repo.updateWeather, _boolCombineA);
+    final _updateWeatherCommand = RxCommand
+        .createAsync3<LocationResult, List<WeatherModel>>(repo.updateWeather,
+            canExecute: _boolCombineA);
 
     final _addCitiesCommand = RxCommand.createSync1<int>(repo.addCities);
 
-    final _updateLocationStreamCommand =
-        RxCommand.createFromStream<dynamic, LocationResult>(
-            repo.updateLocationStream, _boolCombineB);
+    final _updateLocationStreamCommand = RxCommand
+        .createFromStream<dynamic, LocationResult>(repo.updateLocationStream,
+            canExecute: _boolCombineB);
 
     // _updateLocationCommand.results.listen(_updateWeatherCommand);
     //using a stream based command now because lastKnownLocation is not as consistent as [currentLocation]
@@ -74,6 +79,7 @@ class ModelCommand {
       _radioCheckedCommand,
       _addCitiesCommand,
       _updateLocationStreamCommand,
+      _changeLocaleCommand,
     );
   }
 }

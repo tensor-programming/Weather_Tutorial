@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:weather/model/weather_repo.dart';
 import 'package:weather/model/model_command.dart';
 import 'package:weather/model/model.dart';
 import 'package:weather/model/model_provider.dart';
 
+import 'package:weather/localization/localizations.dart';
 //unimport if you need the initState function stuff.
 
-// import 'package:geolocation/geolocation.dart';
+import 'package:geolocation/geolocation.dart';
 
 import 'package:rx_widgets/rx_widgets.dart';
 
@@ -28,7 +30,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Weather Demo',
+      localizationsDelegates: [
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en', ""),
+        Locale("es", ""),
+        Locale('ja', ''),
+      ],
+      onGenerateTitle: (BuildContext context) =>
+          AppLocalizations.of(context).title,
       theme: ThemeData.dark(),
       home: MyHomePage(),
     );
@@ -44,20 +57,36 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    //If Geolocation is unable to get location in emulator, uncomment this and then restart the program.
-    //This tends to fix the error and you can see if the GPS is actually getting the location.
-    // var x = Geolocation.locationUpdates(
-    //     accuracy: LocationAccuracy.best, inBackground: false);
-    // x.listen((d) => print(d.isSuccessful));
+
+    // If Geolocation is unable to get location in emulator, uncomment this and then restart the program.
+    // This tends to fix the error and you can see if the GPS is actually getting the location.
+    var x = Geolocation.locationUpdates(
+        accuracy: LocationAccuracy.best, inBackground: false);
+    x.listen((d) => print(d.isSuccessful));
   }
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+
     //call to getGpsCommand handler on build.  If GPS is active comes back with true, else false.
+    ModelProvider
+        .of(context)
+        .changeLocaleCommand
+        .call(myLocale.languageCode.toString());
     ModelProvider.of(context).getGpsCommand.call();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Weather App'),
+        title: Text(
+          AppLocalizations.of(context).title.toString(),
+          style: TextStyle(
+            fontSize: myLocale.languageCode.contains("es") ||
+                    myLocale.languageCode.contains("ja")
+                ? 15.0
+                : 20.0,
+          ),
+        ),
         actions: <Widget>[
           Container(
             child: Center(
@@ -126,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTrue: MaterialButton(
                       elevation: 5.0,
                       color: Colors.blueGrey,
-                      child: Text("Get the Weather"),
+                      child: Text(AppLocalizations.of(context).button),
                       onPressed: ModelProvider
                           .of(context)
                           .updateLocationStreamCommand
