@@ -9,7 +9,7 @@ part of 'response.dart';
 BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) =>
     new BaseResponse(
         json['message'] as String,
-        json['cod'] as String,
+        json['cod'].toString(),
         json['count'] as int,
         (json['list'] as List)
             ?.map((e) =>

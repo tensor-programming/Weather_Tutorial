@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
               child: RxLoader<bool>(
                 radius: 20.0,
-                commandResults: ModelProvider.of(context).getGpsCommand,
+                commandResults: ModelProvider.of(context).getGpsCommand.results,
                 dataBuilder: (context, data) => Row(
                       children: <Widget>[
                         Text(data ? "GPS is Active" : "GPS is Inactive"),
@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: RxLoader<List<WeatherModel>>(
               radius: 30.0,
-              commandResults: ModelProvider.of(context).updateWeatherCommand,
+              commandResults: ModelProvider.of(context).updateWeatherCommand.results,
               dataBuilder: (context, data) => WeatherList(data),
               placeHolderBuilder: (context) => Center(child: Text("No Data")),
               errorBuilder: (context, exception) =>

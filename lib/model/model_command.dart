@@ -11,10 +11,10 @@ class ModelCommand {
 
   // final RxCommand<Null, LocationResult> updateLocationCommand;
   final RxCommand<LocationResult, List<WeatherModel>> updateWeatherCommand;
-  final RxCommand<Null, bool> getGpsCommand;
+  final RxCommand<void, bool> getGpsCommand;
   final RxCommand<bool, bool> radioCheckedCommand;
-  final RxCommand<int, Null> addCitiesCommand;
-  final RxCommand<String, Null> changeLocaleCommand;
+  final RxCommand<int, void> addCitiesCommand;
+  final RxCommand<String, void> changeLocaleCommand;
   final RxCommand<dynamic, LocationResult> updateLocationStreamCommand;
 
   ModelCommand._(
@@ -29,12 +29,12 @@ class ModelCommand {
   );
 
   factory ModelCommand(WeatherRepo repo) {
-    final _getGpsCommand = RxCommand.createAsync2<bool>(repo.getGps);
+    final _getGpsCommand = RxCommand.createAsyncNoParam(repo.getGps);
 
-    final _radioCheckedCommand = RxCommand.createSync3<bool, bool>((b) => b);
+    final _radioCheckedCommand = RxCommand.createSync<bool, bool>((b) => b);
 
     final _changeLocaleCommand =
-        RxCommand.createSync1<String>(repo.setLanguage);
+        RxCommand.createSyncNoResult<String>(repo.setLanguage);
 
     //A combined Observable of the GPS and Radio observables using And logic.  If one is false then false will be returned.
     //This allows us to have a more dynamic set of circumstances for shutting down the buttons.
@@ -45,20 +45,20 @@ class ModelCommand {
 
     //Two Observables needed because they are only cold observables (single subscription).
     final _boolCombineA =
-        CombineObs(_getGpsCommand.results, _radioCheckedCommand.results)
+        CombineObs(_getGpsCommand, _radioCheckedCommand.results)
             .combinedObservable;
     final _boolCombineB =
-        CombineObs(_getGpsCommand.results, _radioCheckedCommand.results)
+        CombineObs(_getGpsCommand, _radioCheckedCommand.results)
             .combinedObservable;
 
     // final _updateLocationCommand =
     //     RxCommand.createAsync2<LocationResult>(repo.updateLocation);
 
     final _updateWeatherCommand = RxCommand
-        .createAsync3<LocationResult, List<WeatherModel>>(repo.updateWeather,
+        .createAsync<LocationResult, List<WeatherModel>>(repo.updateWeather,
             canExecute: _boolCombineA);
 
-    final _addCitiesCommand = RxCommand.createSync1<int>(repo.addCities);
+    final _addCitiesCommand = RxCommand.createSyncNoResult<int>(repo.addCities);
 
     final _updateLocationStreamCommand = RxCommand
         .createFromStream<dynamic, LocationResult>(repo.updateLocationStream,
@@ -67,9 +67,9 @@ class ModelCommand {
     // _updateLocationCommand.results.listen(_updateWeatherCommand);
     //using a stream based command now because lastKnownLocation is not as consistent as [currentLocation]
     _updateLocationStreamCommand.results
-        .listen((data) => _updateWeatherCommand(data));
+        .listen((data) => new CommandResult(data, null, null));
 
-    _updateWeatherCommand(null);
+    _updateWeatherCommand();
 
     return ModelCommand._(
       repo,
@@ -81,7 +81,7 @@ class ModelCommand {
       _updateLocationStreamCommand,
       _changeLocaleCommand,
     );
-  }
+        }
 }
 
 class CombineObs {
