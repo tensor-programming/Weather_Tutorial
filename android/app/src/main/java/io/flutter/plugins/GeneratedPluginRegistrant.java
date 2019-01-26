@@ -1,7 +1,9 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
-import io.intheloup.geolocation.GeolocationPlugin;
+import com.baseflow.flutter.plugin.geolocator.GeolocatorPlugin;
+import com.baseflow.googleapiavailability.GoogleApiAvailabilityPlugin;
+import com.baseflow.permissionhandler.PermissionHandlerPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -11,7 +13,9 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
-    GeolocationPlugin.registerWith(registry.registrarFor("io.intheloup.geolocation.GeolocationPlugin"));
+    GeolocatorPlugin.registerWith(registry.registrarFor("com.baseflow.flutter.plugin.geolocator.GeolocatorPlugin"));
+    GoogleApiAvailabilityPlugin.registerWith(registry.registrarFor("com.baseflow.googleapiavailability.GoogleApiAvailabilityPlugin"));
+    PermissionHandlerPlugin.registerWith(registry.registrarFor("com.baseflow.permissionhandler.PermissionHandlerPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {

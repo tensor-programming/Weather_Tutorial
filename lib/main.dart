@@ -7,9 +7,6 @@ import 'package:weather/model/model.dart';
 import 'package:weather/model/model_provider.dart';
 
 import 'package:weather/localization/localizations.dart';
-//unimport if you need the initState function stuff.
-
-import 'package:geolocation/geolocation.dart';
 
 import 'package:rx_widgets/rx_widgets.dart';
 
@@ -48,30 +45,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-
-    // If Geolocation is unable to get location in emulator, uncomment this and then restart the program.
-    // This tends to fix the error and you can see if the GPS is actually getting the location.
-    var x = Geolocation.locationUpdates(
-        accuracy: LocationAccuracy.best, inBackground: false);
-    x.listen((d) => print(d.isSuccessful));
-  }
-
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Locale myLocale = Localizations.localeOf(context);
 
-    //call to getGpsCommand handler on build.  If GPS is active comes back with true, else false.
-    ModelProvider
-        .of(context)
+    ModelProvider.of(context)
         .changeLocaleCommand
         .call(myLocale.languageCode.toString());
     ModelProvider.of(context).getGpsCommand.call();
@@ -92,11 +71,10 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
               child: RxLoader<bool>(
                 radius: 20.0,
-                commandResults: ModelProvider.of(context).getGpsCommand,
+                commandResults: ModelProvider.of(context).getGpsCommand.results,
                 dataBuilder: (context, data) => Row(
                       children: <Widget>[
                         Text(data ? "GPS is Active" : "GPS is Inactive"),
-                        // Added logic to change the Icon when GPS is inactive.
                         IconButton(
                           icon: Icon(
                               data ? Icons.gps_fixed : Icons.gps_not_fixed),
@@ -134,7 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: RxLoader<List<WeatherModel>>(
               radius: 30.0,
-              commandResults: ModelProvider.of(context).updateWeatherCommand,
+              commandResults:
+                  ModelProvider.of(context).updateWeatherCommand.results,
               dataBuilder: (context, data) => WeatherList(data),
               placeHolderBuilder: (context) => Center(child: Text("No Data")),
               errorBuilder: (context, exception) =>
@@ -145,19 +124,16 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.all(10.0),
             child: Row(
               children: <Widget>[
-                //changed to expanded for more consistency.
                 Expanded(
                   child: WidgetSelector(
-                    buildEvents: ModelProvider
-                        .of(context)
+                    buildEvents: ModelProvider.of(context)
                         .updateWeatherCommand
                         .canExecute,
                     onTrue: MaterialButton(
                       elevation: 5.0,
                       color: Colors.blueGrey,
                       child: Text(AppLocalizations.of(context).button),
-                      onPressed: ModelProvider
-                          .of(context)
+                      onPressed: ModelProvider.of(context)
                           .updateLocationStreamCommand
                           .call,
                     ),
@@ -169,7 +145,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                //changed to expanded for more consistency.
                 Expanded(
                   child: Column(
                     children: <Widget>[
@@ -211,7 +186,7 @@ class WeatherList extends StatelessWidget {
             ),
             subtitle: Container(
               padding: EdgeInsets.all(10.0),
-              child: Text(list[index].temperature.toStringAsFixed(2)),
+              child: Text("${list[index].temperature.toStringAsFixed(2)}° F"),
             ),
             trailing: Container(
               child: Column(
