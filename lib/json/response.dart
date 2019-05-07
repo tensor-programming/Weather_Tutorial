@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'response.g.dart';
 
 @JsonSerializable()
-class BaseResponse extends Object with _$BaseResponseSerializerMixin {
+class BaseResponse {
   final String message;
   final String cod;
   final int count;
@@ -20,10 +20,12 @@ class BaseResponse extends Object with _$BaseResponseSerializerMixin {
 
   factory BaseResponse.fromJson(Map<String, dynamic> json) =>
       _$BaseResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BaseResponseToJson(this);
 }
 
 @JsonSerializable()
-class City extends Object with _$CitySerializerMixin {
+class City {
   final int id;
   final String name;
   final Coord coord;
@@ -49,10 +51,11 @@ class City extends Object with _$CitySerializerMixin {
     this.weather,
   );
   factory City.fromJson(Map<String, dynamic> json) => _$CityFromJson(json);
+  Map<String, dynamic> toJson() => _$CityToJson(this);
 }
 
 @JsonSerializable()
-class Coord extends Object with _$CoordSerializerMixin {
+class Coord {
   final double lat;
   final double lon;
   Coord(this.lat, this.lon);
@@ -61,7 +64,7 @@ class Coord extends Object with _$CoordSerializerMixin {
 }
 
 @JsonSerializable()
-class Main extends Object with _$MainSerializerMixin {
+class Main {
   final double temp;
   final double pressure;
   final int humidity;
@@ -83,7 +86,7 @@ class Main extends Object with _$MainSerializerMixin {
 }
 
 @JsonSerializable()
-class Wind extends Object with _$WindSerializerMixin {
+class Wind {
   final double speed;
   final double deg;
 
@@ -99,7 +102,7 @@ class Wind extends Object with _$WindSerializerMixin {
 }
 
 @JsonSerializable()
-class Rain extends Object with _$RainSerializerMixin {
+class Rain {
   @JsonKey(name: "3h")
   final double threeHour;
   Rain(this.threeHour);
@@ -108,7 +111,7 @@ class Rain extends Object with _$RainSerializerMixin {
 }
 
 @JsonSerializable()
-class Clouds extends Object with _$CloudsSerializerMixin {
+class Clouds {
   Clouds({this.all});
   final int all;
 
@@ -116,7 +119,7 @@ class Clouds extends Object with _$CloudsSerializerMixin {
 }
 
 @JsonSerializable()
-class Weather extends Object with _$WeatherSerializerMixin {
+class Weather {
   Weather({
     this.id,
     this.main,

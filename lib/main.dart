@@ -50,6 +50,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Locale myLocale = Localizations.localeOf(context);
 
+    //call to getGpsCommand handler on build.  If GPS is active comes back with true, else false.
     ModelProvider.of(context)
         .changeLocaleCommand
         .call(myLocale.languageCode.toString());
@@ -75,6 +76,7 @@ class MyHomePage extends StatelessWidget {
                 dataBuilder: (context, data) => Row(
                       children: <Widget>[
                         Text(data ? "GPS is Active" : "GPS is Inactive"),
+                        // Added logic to change the Icon when GPS is inactive.
                         IconButton(
                           icon: Icon(
                               data ? Icons.gps_fixed : Icons.gps_not_fixed),
@@ -124,6 +126,7 @@ class MyHomePage extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             child: Row(
               children: <Widget>[
+                //changed to expanded for more consistency.
                 Expanded(
                   child: WidgetSelector(
                     buildEvents: ModelProvider.of(context)
@@ -133,9 +136,8 @@ class MyHomePage extends StatelessWidget {
                       elevation: 5.0,
                       color: Colors.blueGrey,
                       child: Text(AppLocalizations.of(context).button),
-                      onPressed: ModelProvider.of(context)
-                          .updateLocationStreamCommand
-                          .call,
+                      onPressed:
+                          ModelProvider.of(context).updateLocationCommand.call,
                     ),
                     onFalse: MaterialButton(
                       elevation: 0.0,
@@ -145,6 +147,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                //changed to expanded for more consistency.
                 Expanded(
                   child: Column(
                     children: <Widget>[
@@ -186,7 +189,7 @@ class WeatherList extends StatelessWidget {
             ),
             subtitle: Container(
               padding: EdgeInsets.all(10.0),
-              child: Text("${list[index].temperature.toStringAsFixed(2)}° F"),
+              child: Text(list[index].temperature.toStringAsFixed(2)),
             ),
             trailing: Container(
               child: Column(

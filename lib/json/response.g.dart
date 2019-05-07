@@ -3,154 +3,127 @@
 part of 'response.dart';
 
 // **************************************************************************
-// Generator: JsonSerializableGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
-BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) =>
-    new BaseResponse(
-        json['message'] as String,
-        json['cod'] as String,
-        json['count'] as int,
-        (json['list'] as List)
-            ?.map((e) =>
-                e == null ? null : new City.fromJson(e as Map<String, dynamic>))
-            ?.toList());
-
-abstract class _$BaseResponseSerializerMixin {
-  String get message;
-  String get cod;
-  int get count;
-  List<City> get cities;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'message': message,
-        'cod': cod,
-        'count': count,
-        'list': cities
-      };
+BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) {
+  return BaseResponse(
+      json['message'] as String,
+      json['cod'] as String,
+      json['count'] as int,
+      (json['list'] as List)
+          ?.map((e) =>
+              e == null ? null : City.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
-City _$CityFromJson(Map<String, dynamic> json) => new City(
-    json['id'] as int,
-    json['name'] as String,
-    json['coord'] == null
-        ? null
-        : new Coord.fromJson(json['coord'] as Map<String, dynamic>),
-    json['main'] == null
-        ? null
-        : new Main.fromJson(json['main'] as Map<String, dynamic>),
-    json['dt'] as int,
-    json['wind'] == null
-        ? null
-        : new Wind.fromJson(json['wind'] as Map<String, dynamic>),
-    json['rain'] == null
-        ? null
-        : new Rain.fromJson(json['rain'] as Map<String, dynamic>),
-    json['clouds'] == null
-        ? null
-        : new Clouds.fromJson(json['clouds'] as Map<String, dynamic>),
-    (json['weather'] as List)
-        ?.map((e) =>
-            e == null ? null : new Weather.fromJson(e as Map<String, dynamic>))
-        ?.toList());
+Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+      'cod': instance.cod,
+      'count': instance.count,
+      'list': instance.cities
+    };
 
-abstract class _$CitySerializerMixin {
-  int get id;
-  String get name;
-  Coord get coord;
-  Main get main;
-  int get dt;
-  Wind get wind;
-  Rain get rain;
-  Clouds get clouds;
-  List<Weather> get weather;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
-        'name': name,
-        'coord': coord,
-        'main': main,
-        'dt': dt,
-        'wind': wind,
-        'rain': rain,
-        'clouds': clouds,
-        'weather': weather
-      };
+City _$CityFromJson(Map<String, dynamic> json) {
+  return City(
+      json['id'] as int,
+      json['name'] as String,
+      json['coord'] == null
+          ? null
+          : Coord.fromJson(json['coord'] as Map<String, dynamic>),
+      json['main'] == null
+          ? null
+          : Main.fromJson(json['main'] as Map<String, dynamic>),
+      json['dt'] as int,
+      json['wind'] == null
+          ? null
+          : Wind.fromJson(json['wind'] as Map<String, dynamic>),
+      json['rain'] == null
+          ? null
+          : Rain.fromJson(json['rain'] as Map<String, dynamic>),
+      json['clouds'] == null
+          ? null
+          : Clouds.fromJson(json['clouds'] as Map<String, dynamic>),
+      (json['weather'] as List)
+          ?.map((e) =>
+              e == null ? null : Weather.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
-Coord _$CoordFromJson(Map<String, dynamic> json) => new Coord(
-    (json['lat'] as num)?.toDouble(), (json['lon'] as num)?.toDouble());
+Map<String, dynamic> _$CityToJson(City instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'coord': instance.coord,
+      'main': instance.main,
+      'dt': instance.dt,
+      'wind': instance.wind,
+      'rain': instance.rain,
+      'clouds': instance.clouds,
+      'weather': instance.weather
+    };
 
-abstract class _$CoordSerializerMixin {
-  double get lat;
-  double get lon;
-  Map<String, dynamic> toJson() => <String, dynamic>{'lat': lat, 'lon': lon};
+Coord _$CoordFromJson(Map<String, dynamic> json) {
+  return Coord(
+      (json['lat'] as num)?.toDouble(), (json['lon'] as num)?.toDouble());
 }
 
-Main _$MainFromJson(Map<String, dynamic> json) => new Main(
-    (json['temp'] as num)?.toDouble(),
-    (json['pressure'] as num)?.toDouble(),
-    json['humidity'] as int,
-    (json['temp_max'] as num)?.toDouble(),
-    (json['temp_min'] as num)?.toDouble());
+Map<String, dynamic> _$CoordToJson(Coord instance) =>
+    <String, dynamic>{'lat': instance.lat, 'lon': instance.lon};
 
-abstract class _$MainSerializerMixin {
-  double get temp;
-  double get pressure;
-  int get humidity;
-  double get tempMax;
-  double get tempMin;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'temp': temp,
-        'pressure': pressure,
-        'humidity': humidity,
-        'temp_max': tempMax,
-        'temp_min': tempMin
-      };
+Main _$MainFromJson(Map<String, dynamic> json) {
+  return Main(
+      (json['temp'] as num)?.toDouble(),
+      (json['pressure'] as num)?.toDouble(),
+      json['humidity'] as int,
+      (json['temp_max'] as num)?.toDouble(),
+      (json['temp_min'] as num)?.toDouble());
 }
 
-Wind _$WindFromJson(Map<String, dynamic> json) => new Wind(
-    (json['speed'] as num)?.toDouble(),
-    (json['deg'] as num)?.toDouble(),
-    (json['gust'] as num)?.toDouble());
+Map<String, dynamic> _$MainToJson(Main instance) => <String, dynamic>{
+      'temp': instance.temp,
+      'pressure': instance.pressure,
+      'humidity': instance.humidity,
+      'temp_max': instance.tempMax,
+      'temp_min': instance.tempMin
+    };
 
-abstract class _$WindSerializerMixin {
-  double get speed;
-  double get deg;
-  double get gust;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'speed': speed, 'deg': deg, 'gust': gust};
+Wind _$WindFromJson(Map<String, dynamic> json) {
+  return Wind((json['speed'] as num)?.toDouble(),
+      (json['deg'] as num)?.toDouble(), (json['gust'] as num)?.toDouble());
 }
 
-Rain _$RainFromJson(Map<String, dynamic> json) =>
-    new Rain((json['3h'] as num)?.toDouble());
+Map<String, dynamic> _$WindToJson(Wind instance) => <String, dynamic>{
+      'speed': instance.speed,
+      'deg': instance.deg,
+      'gust': instance.gust
+    };
 
-abstract class _$RainSerializerMixin {
-  double get threeHour;
-  Map<String, dynamic> toJson() => <String, dynamic>{'3h': threeHour};
+Rain _$RainFromJson(Map<String, dynamic> json) {
+  return Rain((json['3h'] as num)?.toDouble());
 }
 
-Clouds _$CloudsFromJson(Map<String, dynamic> json) =>
-    new Clouds(all: json['all'] as int);
+Map<String, dynamic> _$RainToJson(Rain instance) =>
+    <String, dynamic>{'3h': instance.threeHour};
 
-abstract class _$CloudsSerializerMixin {
-  int get all;
-  Map<String, dynamic> toJson() => <String, dynamic>{'all': all};
+Clouds _$CloudsFromJson(Map<String, dynamic> json) {
+  return Clouds(all: json['all'] as int);
 }
 
-Weather _$WeatherFromJson(Map<String, dynamic> json) => new Weather(
-    id: json['id'] as int,
-    main: json['main'] as String,
-    description: json['description'] as String,
-    icon: json['icon'] as String);
+Map<String, dynamic> _$CloudsToJson(Clouds instance) =>
+    <String, dynamic>{'all': instance.all};
 
-abstract class _$WeatherSerializerMixin {
-  int get id;
-  String get main;
-  String get description;
-  String get icon;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
-        'main': main,
-        'description': description,
-        'icon': icon
-      };
+Weather _$WeatherFromJson(Map<String, dynamic> json) {
+  return Weather(
+      id: json['id'] as int,
+      main: json['main'] as String,
+      description: json['description'] as String,
+      icon: json['icon'] as String);
 }
+
+Map<String, dynamic> _$WeatherToJson(Weather instance) => <String, dynamic>{
+      'id': instance.id,
+      'main': instance.main,
+      'description': instance.description,
+      'icon': instance.icon
+    };

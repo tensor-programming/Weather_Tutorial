@@ -3,7 +3,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+// import 'package:geolocation/geolocation.dart';
 import 'package:geolocator/geolocator.dart';
+
 import 'package:weather/json/response.dart';
 
 import 'package:weather/model/model.dart';
@@ -34,7 +36,6 @@ class WeatherRepo {
       url =
           'http://api.openweathermap.org/data/2.5/find?lat=43&lon=-79&cnt=10&appid=$API_KEY';
     }
-
     final response = await client.get(url);
 
     List<WeatherModel> req = BaseResponse.fromJson(
@@ -46,9 +47,10 @@ class WeatherRepo {
     return req;
   }
 
-  Future<Position> updateLocation(dynamic item) {
-    Future<Position> location = Geolocator().getCurrentPosition();
-    return location;
+  Future<Position> updateLocation(dynamic data) async {
+    Future<Position> result =
+        Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    return result;
   }
 
   Future<bool> getGps() async {

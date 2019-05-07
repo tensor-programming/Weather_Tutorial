@@ -14,7 +14,7 @@ class ModelCommand {
   final RxCommand<bool, bool> radioCheckedCommand;
   final RxCommand<int, void> addCitiesCommand;
   final RxCommand<String, void> changeLocaleCommand;
-  final RxCommand<dynamic, Position> updateLocationStreamCommand;
+  final RxCommand<dynamic, Position> updateLocationCommand;
 
   ModelCommand._(
     this.weatherRepo,
@@ -22,7 +22,7 @@ class ModelCommand {
     this.getGpsCommand,
     this.radioCheckedCommand,
     this.addCitiesCommand,
-    this.updateLocationStreamCommand,
+    this.updateLocationCommand,
     this.changeLocaleCommand,
   );
 
@@ -46,11 +46,11 @@ class ModelCommand {
 
     final _addCitiesCommand = RxCommand.createSyncNoResult<int>(repo.addCities);
 
-    final _updateLocationStreamCommand =
-        RxCommand.createAsync<dynamic, Position>(repo.updateLocation,
-            canExecute: _boolCombineB);
+    final _updateLocationCommand = RxCommand.createAsync<dynamic, Position>(
+        repo.updateLocation,
+        canExecute: _boolCombineB);
 
-    _updateLocationStreamCommand.listen((data) => _updateWeatherCommand(data));
+    _updateLocationCommand.listen((data) => _updateWeatherCommand(data));
 
     // _updateWeatherCommand(null);
 
@@ -60,7 +60,7 @@ class ModelCommand {
       _getGpsCommand,
       _radioCheckedCommand,
       _addCitiesCommand,
-      _updateLocationStreamCommand,
+      _updateLocationCommand,
       _changeLocaleCommand,
     );
   }
