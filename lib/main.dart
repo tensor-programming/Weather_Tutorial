@@ -49,12 +49,11 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Locale myLocale = Localizations.localeOf(context);
+    ModelCommand command = ModelProvider.of(context);
 
     //call to getGpsCommand handler on build.  If GPS is active comes back with true, else false.
-    ModelProvider.of(context)
-        .changeLocaleCommand
-        .call(myLocale.languageCode.toString());
-    ModelProvider.of(context).getGpsCommand.call();
+    command.changeLocaleCommand.call(myLocale.languageCode.toString());
+    command.getGpsCommand.call();
 
     return Scaffold(
       appBar: AppBar(
@@ -72,18 +71,17 @@ class MyHomePage extends StatelessWidget {
             child: Center(
               child: RxLoader<bool>(
                 radius: 20.0,
-                commandResults: ModelProvider.of(context).getGpsCommand.results,
+                commandResults: command.getGpsCommand.results,
                 dataBuilder: (context, data) => Row(
-                      children: <Widget>[
-                        Text(data ? "GPS is Active" : "GPS is Inactive"),
-                        // Added logic to change the Icon when GPS is inactive.
-                        IconButton(
-                          icon: Icon(
-                              data ? Icons.gps_fixed : Icons.gps_not_fixed),
-                          onPressed: ModelProvider.of(context).getGpsCommand,
-                        ),
-                      ],
+                  children: <Widget>[
+                    Text(data ? "GPS is Active" : "GPS is Inactive"),
+                    // Added logic to change the Icon when GPS is inactive.
+                    IconButton(
+                      icon: Icon(data ? Icons.gps_fixed : Icons.gps_not_fixed),
+                      onPressed: command.getGpsCommand,
                     ),
+                  ],
+                ),
                 placeHolderBuilder: (context) => Text("Push the Button"),
                 errorBuilder: (context, exception) => Text("$exception"),
               ),
@@ -114,8 +112,7 @@ class MyHomePage extends StatelessWidget {
           Expanded(
             child: RxLoader<List<WeatherModel>>(
               radius: 30.0,
-              commandResults:
-                  ModelProvider.of(context).updateWeatherCommand.results,
+              commandResults: command.updateWeatherCommand.results,
               dataBuilder: (context, data) => WeatherList(data),
               placeHolderBuilder: (context) => Center(child: Text("No Data")),
               errorBuilder: (context, exception) =>
@@ -129,15 +126,12 @@ class MyHomePage extends StatelessWidget {
                 //changed to expanded for more consistency.
                 Expanded(
                   child: WidgetSelector(
-                    buildEvents: ModelProvider.of(context)
-                        .updateWeatherCommand
-                        .canExecute,
+                    buildEvents: command.updateWeatherCommand.canExecute,
                     onTrue: MaterialButton(
                       elevation: 5.0,
                       color: Colors.blueGrey,
                       child: Text(AppLocalizations.of(context).button),
-                      onPressed:
-                          ModelProvider.of(context).updateLocationCommand.call,
+                      onPressed: command.updateLocationCommand.call,
                     ),
                     onFalse: MaterialButton(
                       elevation: 0.0,
@@ -153,7 +147,7 @@ class MyHomePage extends StatelessWidget {
                     children: <Widget>[
                       SliderItem(
                         sliderState: true,
-                        command: ModelProvider.of(context).radioCheckedCommand,
+                        command: command.radioCheckedCommand,
                       ),
                       Container(
                         padding: EdgeInsets.all(10.0),
@@ -180,39 +174,37 @@ class WeatherList extends StatelessWidget {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, index) => ListTile(
-            leading: Image.network("http://openweathermap.org/img/w/" +
-                list[index].icon.toString() +
-                '.png'),
-            title: Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text(list[index].city.toString()),
-            ),
-            subtitle: Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text(list[index].temperature.toStringAsFixed(2)),
-            ),
-            trailing: Container(
-              child: Column(
-                children: <Widget>[
-                  Text(list[index].description),
-                  Container(
-                    padding: EdgeInsets.only(top: 5.0),
-                    child: Text(
-                      'Latitude: ${list[index].lat}',
-                      style: TextStyle(
-                          fontSize: 12.0, fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                  Container(
-                      child: Text(
-                    'Longitude: ${list[index].long}',
-                    style:
-                        TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
-                  ))
-                ],
+        leading: Image.network("http://openweathermap.org/img/w/" +
+            list[index].icon.toString() +
+            '.png'),
+        title: Container(
+          padding: EdgeInsets.all(10.0),
+          child: Text(list[index].city.toString()),
+        ),
+        subtitle: Container(
+          padding: EdgeInsets.all(10.0),
+          child: Text(list[index].temperature.toStringAsFixed(2)),
+        ),
+        trailing: Container(
+          child: Column(
+            children: <Widget>[
+              Text(list[index].description),
+              Container(
+                padding: EdgeInsets.only(top: 5.0),
+                child: Text(
+                  'Latitude: ${list[index].lat}',
+                  style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
+                ),
               ),
-            ),
+              Container(
+                  child: Text(
+                'Longitude: ${list[index].long}',
+                style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
+              ))
+            ],
           ),
+        ),
+      ),
     );
   }
 }
