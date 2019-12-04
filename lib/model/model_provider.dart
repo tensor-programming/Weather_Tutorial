@@ -15,10 +15,10 @@ class ModelProvider extends InheritedWidget {
     return modelCommand != oldWidget.modelCommand;
   }
 
-  static ModelCommand of(BuildContext context) {
-    ModelProvider modelProvider =
-        context.inheritFromWidgetOfExactType(ModelProvider) as ModelProvider;
+  static ModelCommand of<T extends ModelProvider>(BuildContext context) {
+    final ModelProvider inherited =
+        context.dependOnInheritedWidgetOfExactType<ModelProvider>();
 
-    return modelProvider.modelCommand;
+    return inherited?.modelCommand;
   }
 }
